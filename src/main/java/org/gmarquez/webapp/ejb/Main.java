@@ -14,14 +14,17 @@ public class Main {
         // Invocando service de la dependencia
         ServiceEJBRemote serviceEJBRemote = null;
 
-        final Properties env = new Properties();
         // Configuraciones base para relizar la comunicacion remota con el repositorio
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-        env.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+        // Se dejaron las variable en /resources/jndi.properties
+        // final Properties env = new Properties();
 
-        env.put("jboss.naming.client.ejb.context", true);
+        // env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+        // env.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+        // env.put("jboss.naming.client.ejb.context", true);
+
         try {
-            InitialContext remoteContext = new InitialContext(env);
+            // InitialContext remoteContext = new InitialContext(env); se pasa el env, si no tenemos las variables en el jndi.properties
+            InitialContext remoteContext = new InitialContext();
 
             // Pasamos el path que provee widfly en el deploy especificando la ruta de la interfaz remote
             serviceEJBRemote = (ServiceEJBRemote) remoteContext.lookup("ejb:/java-ejb-remote/ServiceEJBRemoteImpl!org.gmarquez.webapp.ejb.service.ServiceEJBRemote?stateful");
